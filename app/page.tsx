@@ -263,6 +263,138 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Impact & Giving */}
+      <section className="py-14 sm:py-20 px-4 border-t border-white/5">
+        <div className="max-w-6xl mx-auto">
+
+          <div className="text-center mb-10 sm:mb-14">
+            <p className="font-condensed text-sm uppercase tracking-[0.4em] text-amber-400 mb-2">Beyond the Art</p>
+            <h2 className="font-display text-4xl sm:text-6xl md:text-7xl text-white mb-4">IMPACT & GIVING</h2>
+            <p className="font-condensed text-slate-400 max-w-xl mx-auto text-sm sm:text-base">
+              Aku was never just an NFT. From space missions to scholarships, Micah has used the Akuverse to change lives.
+            </p>
+          </div>
+
+          <div className="grid sm:grid-cols-2 gap-4 sm:gap-6 mb-8 sm:mb-12">
+
+            {/* 1 — Art to Space */}
+            <div className="glass border border-white/10 rounded-sm p-6 sm:p-8 group hover:border-amber-400/30 transition-all duration-300 hover-glow-gold">
+              <div className="flex items-start gap-4 mb-5">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-xl" style={{background: 'rgba(251,191,36,0.12)', border: '1px solid rgba(251,191,36,0.3)'}}>
+                  🛸
+                </div>
+                <div>
+                  <p className="font-condensed text-xs uppercase tracking-[0.3em] text-amber-400 mb-1">Historic First</p>
+                  <h3 className="font-display text-2xl sm:text-3xl text-white leading-tight">FIRST NFT IN SPACE</h3>
+                </div>
+              </div>
+              <div className="h-px bg-gradient-to-r from-amber-400/30 to-transparent mb-5" />
+              <p className="font-condensed text-slate-300 leading-relaxed mb-5 text-sm sm:text-base">
+                Aku&apos;s digital file was beamed to the International Space Station, orbiting 125,000+ miles above Earth — making it the first NFT artwork ever to travel to space. The auction proceeds went directly to{' '}
+                <span className="text-amber-300 font-semibold">Students for the Exploration and Development of Space (SEDS)</span>, a 501(c)(3) nonprofit empowering the next generation of space explorers.
+              </p>
+              <a
+                href="https://spacenews.com/the-race-to-fund-space-students-for-the-exploration-and-development-of-space-to-receive-proceeds-from-micah-johnsonaeurs-aku-nft-auction-on-notables/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-condensed font-semibold text-xs uppercase tracking-widest text-amber-400 hover:text-white transition-colors"
+              >
+                Read the Story →
+              </a>
+            </div>
+
+            {/* 2 — Black Ambition */}
+            <div className="glass border border-white/10 rounded-sm p-6 sm:p-8 group hover:border-amber-400/30 transition-all duration-300 hover-glow-gold">
+              <div className="flex items-start gap-4 mb-5">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-xl" style={{background: 'rgba(251,191,36,0.12)', border: '1px solid rgba(251,191,36,0.3)'}}>
+                  💡
+                </div>
+                <div>
+                  <p className="font-condensed text-xs uppercase tracking-[0.3em] text-amber-400 mb-1">Entrepreneurship</p>
+                  <h3 className="font-display text-2xl sm:text-3xl text-white leading-tight">BLACK AMBITION × AKU</h3>
+                </div>
+              </div>
+              <div className="h-px bg-gradient-to-r from-amber-400/30 to-transparent mb-5" />
+              <p className="font-condensed text-slate-300 leading-relaxed mb-5 text-sm sm:text-base">
+                Aku partnered with Pharrell Williams&apos; <span className="text-amber-300 font-semibold">Black Ambition</span> and Billionaire Boys Club to award{' '}
+                <span className="text-amber-300 font-semibold">$250,000 in prize money</span> to Black and Latinx entrepreneurs through the HBCU Prize competition — funding early-stage companies across tech, healthcare, media, and Web3.
+              </p>
+              <a
+                href="https://blackambitionprize.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-condensed font-semibold text-xs uppercase tracking-widest text-amber-400 hover:text-white transition-colors"
+              >
+                Black Ambition Prize →
+              </a>
+            </div>
+
+            {/* 3 — Blessings in a Backpack */}
+            <div className="glass border border-white/10 rounded-sm p-6 sm:p-8 group hover:border-amber-400/30 transition-all duration-300 hover-glow-gold">
+              <div className="flex items-start gap-4 mb-5">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-xl" style={{background: 'rgba(251,191,36,0.12)', border: '1px solid rgba(251,191,36,0.3)'}}>
+                  🎒
+                </div>
+                <div>
+                  <p className="font-condensed text-xs uppercase tracking-[0.3em] text-amber-400 mb-1">Food Insecurity</p>
+                  <h3 className="font-display text-2xl sm:text-3xl text-white leading-tight">BLESSINGS IN A BACKPACK</h3>
+                </div>
+              </div>
+              <div className="h-px bg-gradient-to-r from-amber-400/30 to-transparent mb-5" />
+              <p className="font-condensed text-slate-300 leading-relaxed mb-5 text-sm sm:text-base">
+                Through the <span className="text-amber-300 font-semibold">Starbucks Odyssey</span> Web3 partnership, Aku connected its community to Blessings in a Backpack — a nonprofit providing weekend meals to food-insecure children across America who rely on school lunch as their primary source of nutrition.
+              </p>
+              <a
+                href="https://blessingsinabackpack.org"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-condensed font-semibold text-xs uppercase tracking-widest text-amber-400 hover:text-white transition-colors"
+              >
+                Learn More →
+              </a>
+            </div>
+
+            {/* 4 — I Promise School */}
+            <div className="glass border border-white/10 rounded-sm p-6 sm:p-8 group hover:border-amber-400/30 transition-all duration-300 hover-glow-gold">
+              <div className="flex items-start gap-4 mb-5">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-xl" style={{background: 'rgba(251,191,36,0.12)', border: '1px solid rgba(251,191,36,0.3)'}}>
+                  ⭐
+                </div>
+                <div>
+                  <p className="font-condensed text-xs uppercase tracking-[0.3em] text-amber-400 mb-1">Education</p>
+                  <h3 className="font-display text-2xl sm:text-3xl text-white leading-tight">I PROMISE SCHOOL</h3>
+                </div>
+              </div>
+              <div className="h-px bg-gradient-to-r from-amber-400/30 to-transparent mb-5" />
+              <p className="font-condensed text-slate-300 leading-relaxed mb-5 text-sm sm:text-base">
+                Micah visited <span className="text-amber-300 font-semibold">LeBron James&apos;s I Promise School</span> in Akron, Ohio to speak directly with at-risk third and fourth-grade students about dreaming without limits — sharing his journey from MLB player to digital artist and the story behind Aku.
+              </p>
+              <a
+                href="https://ipromise.school"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-condensed font-semibold text-xs uppercase tracking-widest text-amber-400 hover:text-white transition-colors"
+              >
+                I Promise School →
+              </a>
+            </div>
+
+          </div>
+
+          {/* Pull quote */}
+          <div
+            className="rounded-sm p-6 sm:p-8 text-center"
+            style={{background: 'linear-gradient(135deg, rgba(251,191,36,0.05), rgba(0,212,255,0.05))', border: '1px solid rgba(251,191,36,0.2)'}}
+          >
+            <p className="font-condensed italic text-lg sm:text-2xl text-amber-300 mb-3">
+              &ldquo;Representation changes who gets to dream.&rdquo;
+            </p>
+            <p className="font-condensed text-xs uppercase tracking-[0.3em] text-slate-500">— Micah Johnson, Creator of Aku</p>
+          </div>
+
+        </div>
+      </section>
+
       {/* About Micah */}
       <section className="py-14 sm:py-20 px-4 border-t border-white/5">
         <div className="max-w-3xl mx-auto text-center">
