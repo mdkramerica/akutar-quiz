@@ -2,7 +2,7 @@
 // Token IDs from the live collection: opensea.io/collection/akutars
 
 const BASE = 'https://i2c.seadn.io/ethereum/0xaad35c2dadbe77f97301617d82e661776c891fa9';
-const OS   = 'https://opensea.io/item/ethereum/0xF18f6b2af8f2B53Fb30B9f4Ced1F2Fae47B0D44';
+const OS   = 'https://opensea.io/assets/ethereum/0xaad35c2dadbe77f97301617d82e661776c891fa9';
 
 export interface AkutarNFT {
   tokenId: string;
