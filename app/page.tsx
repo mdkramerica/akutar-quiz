@@ -109,10 +109,10 @@ export default function Home() {
       </section>
 
       {/* Mission Statement */}
-      <section className="relative py-20 px-4">
+      <section className="relative py-14 sm:py-20 px-4">
         <div className="max-w-3xl mx-auto">
-          <div className="glass border border-cyan-500/20 border-glow-cyan rounded-sm p-10 text-center">
-            <p className="font-condensed text-xl text-slate-200 leading-relaxed">
+          <div className="glass border border-cyan-500/20 border-glow-cyan rounded-sm p-6 sm:p-10 text-center">
+            <p className="font-condensed text-lg sm:text-xl text-slate-200 leading-relaxed">
               Aku represents every child who's ever wondered if space is for them.
               Through storytelling, art, and community, we're proving that{' '}
               <span className="text-cyan-300 font-semibold">the stars belong to everyone</span>.
@@ -122,18 +122,18 @@ export default function Home() {
       </section>
 
       {/* Three Pillars */}
-      <section className="py-20 px-4">
+      <section className="py-14 sm:py-20 px-4">
         <div className="max-w-6xl mx-auto">
 
-          <div className="text-center mb-14">
+          <div className="text-center mb-10 sm:mb-14">
             <p className="font-condensed text-sm uppercase tracking-[0.4em] text-cyan-400 mb-2">The Universe</p>
-            <h2 className="font-display text-6xl md:text-7xl text-white">THREE PILLARS</h2>
+            <h2 className="font-display text-4xl sm:text-6xl md:text-7xl text-white">THREE PILLARS</h2>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-4 sm:gap-6">
 
             {/* Story */}
-            <div className="glass border border-white/10 rounded-sm p-8 group hover:border-cyan-400/40 hover-glow transition-all duration-300">
+            <div className="glass border border-white/10 rounded-sm p-6 sm:p-8 group hover:border-cyan-400/40 hover-glow transition-all duration-300">
               <p className="font-condensed text-xs uppercase tracking-[0.3em] text-cyan-400 mb-4">Chapter I</p>
               <h3 className="font-display text-4xl text-white mb-4">THE STORY</h3>
               <div className="h-px bg-gradient-to-r from-cyan-400/40 to-transparent mb-6" />
@@ -151,7 +151,7 @@ export default function Home() {
             </div>
 
             {/* Project */}
-            <div className="glass border border-white/10 rounded-sm p-8 group hover:border-cyan-400/40 hover-glow transition-all duration-300">
+            <div className="glass border border-white/10 rounded-sm p-6 sm:p-8 group hover:border-cyan-400/40 hover-glow transition-all duration-300">
               <p className="font-condensed text-xs uppercase tracking-[0.3em] text-cyan-400 mb-4">Chapter II</p>
               <h3 className="font-display text-4xl text-white mb-4">THE PROJECT</h3>
               <div className="h-px bg-gradient-to-r from-cyan-400/40 to-transparent mb-6" />
@@ -169,7 +169,7 @@ export default function Home() {
             </div>
 
             {/* Mission */}
-            <div className="glass border border-white/10 rounded-sm p-8 group hover:border-cyan-400/40 hover-glow transition-all duration-300">
+            <div className="glass border border-white/10 rounded-sm p-6 sm:p-8 group hover:border-cyan-400/40 hover-glow transition-all duration-300">
               <p className="font-condensed text-xs uppercase tracking-[0.3em] text-cyan-400 mb-4">Chapter III</p>
               <h3 className="font-display text-4xl text-white mb-4">THE MISSION</h3>
               <div className="h-px bg-gradient-to-r from-cyan-400/40 to-transparent mb-6" />
@@ -188,23 +188,23 @@ export default function Home() {
       </section>
 
       {/* Quiz CTA Banner */}
-      <section className="py-24 px-4">
+      <section className="py-16 sm:py-24 px-4">
         <div className="max-w-4xl mx-auto">
-          <div className="relative glass-dark border border-cyan-400/20 border-glow-cyan rounded-sm p-14 text-center overflow-hidden">
+          <div className="relative glass-dark border border-cyan-400/20 border-glow-cyan rounded-sm p-8 sm:p-12 md:p-14 text-center overflow-hidden">
             {/* BG glow */}
             <div className="pointer-events-none absolute inset-0">
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-40 rounded-full bg-cyan-500/8 blur-[80px]" />
             </div>
             <p className="font-condensed text-sm uppercase tracking-[0.4em] text-cyan-400 mb-4">Discover Your Akutar</p>
-            <h2 className="font-display text-6xl md:text-8xl text-white text-glow-cyan mb-6">
+            <h2 className="font-display text-[clamp(2.8rem,10vw,8rem)] leading-none text-white text-glow-cyan mb-5 sm:mb-6">
               WHO ARE YOU<br />IN THE AKUVERSE?
             </h2>
-            <p className="font-condensed text-xl text-slate-300 mb-10 max-w-xl mx-auto">
+            <p className="font-condensed text-lg sm:text-xl text-slate-300 mb-8 sm:mb-10 max-w-xl mx-auto">
               12 questions. Real astronaut insights. One Akutar that matches your spirit.
             </p>
             <Link
               href="/quiz"
-              className="inline-block font-condensed font-bold text-xl uppercase tracking-widest px-14 py-5 bg-cyan-400/15 border border-cyan-400/70 text-cyan-300 hover:bg-cyan-400/25 hover:border-cyan-400 hover:text-white transition-all duration-300 rounded-sm border-glow-cyan"
+              className="inline-block font-condensed font-bold text-base sm:text-xl uppercase tracking-widest px-8 sm:px-14 py-4 sm:py-5 bg-cyan-400/15 border border-cyan-400/70 text-cyan-300 hover:bg-cyan-400/25 hover:border-cyan-400 hover:text-white transition-all duration-300 rounded-sm border-glow-cyan"
             >
               Begin Your Mission ✦
             </Link>
@@ -213,17 +213,17 @@ export default function Home() {
       </section>
 
       {/* NFT Gallery */}
-      <section className="py-20 px-4 border-t border-white/5">
+      <section className="py-14 sm:py-20 px-4 border-t border-white/5">
         <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8 sm:mb-12">
             <p className="font-condensed text-xs uppercase tracking-[0.4em] text-cyan-400 mb-2">The Collection</p>
-            <h2 className="font-display text-6xl md:text-7xl text-white mb-4">14,833 AKUTARS</h2>
-            <p className="font-condensed text-slate-400 max-w-xl mx-auto">
+            <h2 className="font-display text-4xl sm:text-6xl md:text-7xl text-white mb-3 sm:mb-4">14,833 AKUTARS</h2>
+            <p className="font-condensed text-slate-400 max-w-xl mx-auto text-sm sm:text-base">
               Every Akutar is unique. Every one has a story. Take the quiz to discover which one matches your spirit.
             </p>
           </div>
 
-          <div className="grid grid-cols-4 md:grid-cols-8 gap-3 mb-10">
+          <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2 sm:gap-3 mb-8 sm:mb-10">
             {homepageGallery.map((nft) => (
               <a
                 key={nft.tokenId}
@@ -264,10 +264,10 @@ export default function Home() {
       </section>
 
       {/* About Micah */}
-      <section className="py-20 px-4 border-t border-white/5">
+      <section className="py-14 sm:py-20 px-4 border-t border-white/5">
         <div className="max-w-3xl mx-auto text-center">
           <p className="font-condensed text-xs uppercase tracking-[0.4em] text-cyan-400 mb-4">The Creator</p>
-          <h2 className="font-display text-5xl text-white mb-6">MICAH JOHNSON</h2>
+          <h2 className="font-display text-4xl sm:text-5xl text-white mb-6">MICAH JOHNSON</h2>
           <div className="h-px w-16 bg-cyan-400/40 mx-auto mb-8" />
           <p className="font-condensed text-slate-300 text-lg leading-relaxed mb-4">
             Former MLB player turned digital artist and creator of Aku.
@@ -281,7 +281,7 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-white/5 py-10 px-4">
+      <footer className="border-t border-white/5 py-8 sm:py-10 px-4 pb-safe">
         <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <span className="font-display text-xl tracking-widest text-white/60">ΛKU</span>
           <p className="font-condensed text-sm text-slate-500">
