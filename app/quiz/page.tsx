@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { questions, calculateArchetype } from '@/lib/questions';
 import Link from 'next/link';
+import Image from 'next/image';
+import { quizCompanions } from '@/lib/akutars';
 
 export default function QuizPage() {
   const router = useRouter();
@@ -172,6 +174,22 @@ export default function QuizPage() {
         }}>
           {question.text}
         </h2>
+
+        {/* Floating Akutar companion */}
+        <div className="hidden md:block" style={{position: 'fixed', bottom: '28px', right: '28px', zIndex: 20}}>
+          <div style={{border: '1px solid rgba(0,212,255,0.4)', borderRadius: '6px', overflow: 'hidden', boxShadow: '0 0 24px rgba(0,212,255,0.2)', width: 90, height: 90}}>
+            <Image
+              src={quizCompanions[currentQuestion % quizCompanions.length].image}
+              alt="Akutar companion"
+              width={90}
+              height={90}
+              style={{objectFit: 'cover', display: 'block'}}
+            />
+          </div>
+          <p style={{textAlign: 'center', color: 'rgba(0,212,255,0.5)', fontSize: '9px', fontFamily: '"Barlow Condensed", sans-serif', letterSpacing: '0.12em', marginTop: '5px', textTransform: 'uppercase'}}>
+            #{quizCompanions[currentQuestion % quizCompanions.length].tokenId}
+          </p>
+        </div>
 
         {/* Answers */}
         <div style={{display: 'flex', flexDirection: 'column', gap: '10px'}}>

@@ -1,4 +1,6 @@
 import Link from 'next/link';
+import Image from 'next/image';
+import { homepageGallery } from '@/lib/akutars';
 
 export default function Home() {
   return (
@@ -71,6 +73,32 @@ export default function Home() {
             >
               Pre-Order the Book
             </a>
+          </div>
+        </div>
+
+        {/* Floating NFT previews — desktop only */}
+        <div className="hidden lg:block pointer-events-none absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/3 left-8 -translate-y-1/2 opacity-70 animate-in" style={{animationDelay: '500ms'}}>
+            <div style={{border: '1px solid rgba(0,212,255,0.35)', borderRadius: '4px', overflow: 'hidden', boxShadow: '0 0 24px rgba(0,212,255,0.15)', width: 110, height: 110}}>
+              <Image src={homepageGallery[0].image} alt={`Akutar #${homepageGallery[0].tokenId}`} width={110} height={110} style={{objectFit: 'cover'}} />
+            </div>
+            <p style={{textAlign: 'center', color: 'rgba(0,212,255,0.6)', fontSize: '10px', fontFamily: '"Barlow Condensed", sans-serif', letterSpacing: '0.15em', marginTop: '6px'}}>#{homepageGallery[0].tokenId}</p>
+          </div>
+          <div className="absolute top-1/4 right-8 opacity-70 animate-in" style={{animationDelay: '600ms'}}>
+            <div style={{border: '1px solid rgba(0,212,255,0.35)', borderRadius: '4px', overflow: 'hidden', boxShadow: '0 0 24px rgba(0,212,255,0.15)', width: 110, height: 110}}>
+              <Image src={homepageGallery[1].image} alt={`Akutar #${homepageGallery[1].tokenId}`} width={110} height={110} style={{objectFit: 'cover'}} />
+            </div>
+            <p style={{textAlign: 'center', color: 'rgba(0,212,255,0.6)', fontSize: '10px', fontFamily: '"Barlow Condensed", sans-serif', letterSpacing: '0.15em', marginTop: '6px'}}>#{homepageGallery[1].tokenId}</p>
+          </div>
+          <div className="absolute bottom-1/3 left-16 opacity-50 animate-in" style={{animationDelay: '700ms'}}>
+            <div style={{border: '1px solid rgba(124,58,237,0.4)', borderRadius: '4px', overflow: 'hidden', boxShadow: '0 0 20px rgba(124,58,237,0.15)', width: 80, height: 80}}>
+              <Image src={homepageGallery[2].image} alt={`Akutar #${homepageGallery[2].tokenId}`} width={80} height={80} style={{objectFit: 'cover'}} />
+            </div>
+          </div>
+          <div className="absolute bottom-1/4 right-16 opacity-50 animate-in" style={{animationDelay: '800ms'}}>
+            <div style={{border: '1px solid rgba(124,58,237,0.4)', borderRadius: '4px', overflow: 'hidden', boxShadow: '0 0 20px rgba(124,58,237,0.15)', width: 80, height: 80}}>
+              <Image src={homepageGallery[3].image} alt={`Akutar #${homepageGallery[3].tokenId}`} width={80} height={80} style={{objectFit: 'cover'}} />
+            </div>
           </div>
         </div>
 
@@ -180,6 +208,57 @@ export default function Home() {
             >
               Begin Your Mission ✦
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* NFT Gallery */}
+      <section className="py-20 px-4 border-t border-white/5">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12">
+            <p className="font-condensed text-xs uppercase tracking-[0.4em] text-cyan-400 mb-2">The Collection</p>
+            <h2 className="font-display text-6xl md:text-7xl text-white mb-4">14,833 AKUTARS</h2>
+            <p className="font-condensed text-slate-400 max-w-xl mx-auto">
+              Every Akutar is unique. Every one has a story. Take the quiz to discover which one matches your spirit.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-4 md:grid-cols-8 gap-3 mb-10">
+            {homepageGallery.map((nft) => (
+              <a
+                key={nft.tokenId}
+                href={nft.openseaUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative overflow-hidden"
+                style={{borderRadius: '4px', border: '1px solid rgba(255,255,255,0.12)'}}
+              >
+                <Image
+                  src={nft.image}
+                  alt={`Akutar #${nft.tokenId}`}
+                  width={180}
+                  height={180}
+                  style={{objectFit: 'cover', width: '100%', height: 'auto', display: 'block', transition: 'transform 0.3s'}}
+                  className="group-hover:scale-110"
+                />
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity" style={{background: 'rgba(0,212,255,0.15)', borderBottom: '2px solid rgba(0,212,255,0.7)'}}>
+                  <div className="absolute bottom-0 left-0 right-0 p-1.5">
+                    <p style={{fontFamily: '"Barlow Condensed", sans-serif', fontSize: '10px', color: '#00d4ff', letterSpacing: '0.1em', textAlign: 'center'}}>#{nft.tokenId}</p>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          <div className="text-center">
+            <a
+              href="https://opensea.io/collection/akutars"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-condensed font-semibold text-sm uppercase tracking-widest text-cyan-400 hover:text-white transition-colors"
+            >
+              View All 14,833 on OpenSea →
+            </a>
           </div>
         </div>
       </section>

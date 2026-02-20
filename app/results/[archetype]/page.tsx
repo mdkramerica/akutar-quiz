@@ -2,7 +2,9 @@
 
 import { archetypes, ArchetypeId } from '@/lib/archetypes';
 import { logQuizCompletion } from '@/lib/supabase';
+import { archetypeAkutars } from '@/lib/akutars';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { useEffect } from 'react';
 
@@ -10,6 +12,7 @@ export default function ResultPage() {
   const params = useParams();
   const archetypeId = params.archetype as ArchetypeId;
   const archetype = archetypes[archetypeId];
+  const matchedNFTs = archetypeAkutars[archetypeId] ?? [];
 
   useEffect(() => {
     if (archetype) {
@@ -149,20 +152,56 @@ export default function ResultPage() {
           </p>
         </div>
 
-        {/* AKUTAR MATCH */}
-        <div className="glass border border-white/10 rounded-sm p-8 mb-8">
-          <p className="font-condensed text-xs uppercase tracking-[0.4em] text-cyan-400 mb-2">Collection Match</p>
-          <h2 className="font-display text-4xl text-white mb-4">YOUR AKUTAR</h2>
+        {/* AKUTAR MATCH — real NFT images */}
+        <div className="mb-10">
+          <p className="font-condensed text-xs uppercase tracking-[0.4em] text-cyan-400 mb-2">Your Match</p>
+          <h2 className="font-display text-4xl text-white mb-2">YOUR AKUTARS</h2>
           <p className="font-condensed text-slate-400 mb-8">
-            We're matching you with Akutars that share your {archetype.name.toLowerCase()} spirit across the 14,833-piece collection.
+            These two Akutars from the 14,833-piece collection share your {archetype.name.toLowerCase()} spirit.
           </p>
+
+          <div className="grid grid-cols-2 gap-5 mb-6">
+            {matchedNFTs.map((nft) => (
+              <a
+                key={nft.tokenId}
+                href={nft.openseaUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative"
+                style={{borderRadius: '6px', overflow: 'hidden', border: '1px solid rgba(0,212,255,0.3)', boxShadow: '0 0 20px rgba(0,212,255,0.1)'}}
+              >
+                <Image
+                  src={nft.image}
+                  alt={`Akutar #${nft.tokenId}`}
+                  width={400}
+                  height={400}
+                  style={{objectFit: 'cover', width: '100%', height: 'auto', display: 'block', transition: 'transform 0.4s'}}
+                  className="group-hover:scale-105"
+                />
+                {/* Overlay on hover */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity" style={{background: 'rgba(0,212,255,0.08)'}}>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span style={{fontFamily: '"Bebas Neue", sans-serif', fontSize: '14px', color: '#00d4ff', letterSpacing: '0.15em', background: 'rgba(4,8,18,0.85)', padding: '6px 14px', borderRadius: '2px'}}>VIEW ON OPENSEA →</span>
+                  </div>
+                </div>
+                {/* Token label */}
+                <div style={{position: 'absolute', bottom: 0, left: 0, right: 0, padding: '8px 12px', background: 'linear-gradient(to top, rgba(4,8,18,0.95), transparent)'}}>
+                  <p style={{fontFamily: '"Bebas Neue", "Arial Narrow", sans-serif', fontSize: '18px', color: '#ffffff', letterSpacing: '0.05em'}}>Akutar #{nft.tokenId}</p>
+                  <p style={{fontFamily: '"Barlow Condensed", sans-serif', fontSize: '11px', color: 'rgba(0,212,255,0.7)', letterSpacing: '0.2em', textTransform: 'uppercase'}}>
+                    {archetype.name} Spirit
+                  </p>
+                </div>
+              </a>
+            ))}
+          </div>
+
           <a
-            href={`https://opensea.io/collection/akutars?search[query]=${archetype.traits.helmet}`}
+            href="https://opensea.io/collection/akutars"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-block font-condensed font-bold text-sm uppercase tracking-widest px-8 py-4 border border-cyan-400/50 text-cyan-300 hover:border-cyan-400 hover:text-white hover:bg-cyan-400/10 transition-all duration-200 rounded-sm border-glow-cyan"
           >
-            Explore {archetype.name}s on OpenSea →
+            Browse All 14,833 Akutars →
           </a>
         </div>
 
