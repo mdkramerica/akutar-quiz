@@ -11,7 +11,6 @@ export default function ResultPage() {
   const archetypeId = params.archetype as ArchetypeId;
   const archetype = archetypes[archetypeId];
 
-  // Log completion to analytics
   useEffect(() => {
     if (archetype) {
       logQuizCompletion(archetype.id);
@@ -19,45 +18,80 @@ export default function ResultPage() {
   }, [archetype]);
 
   if (!archetype) {
-    return <div>Archetype not found</div>;
+    return (
+      <main className="min-h-screen bg-akuverse flex items-center justify-center">
+        <div className="glass border border-white/10 rounded-sm p-12 text-center">
+          <p className="font-condensed text-slate-400 mb-4 uppercase tracking-widest text-sm">Error</p>
+          <h1 className="font-display text-4xl text-white mb-6">Archetype Not Found</h1>
+          <Link href="/quiz" className="font-condensed text-cyan-400 hover:text-white transition-colors uppercase tracking-widest text-sm">
+            ← Retake Quiz
+          </Link>
+        </div>
+      </main>
+    );
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-[#0A1128] via-[#1E3A8A] to-[#0A1128] p-4">
-      <div className="max-w-4xl mx-auto py-12">
-        
-        {/* Hero/Reveal */}
-        <div className="text-center mb-12 animate-in fade-in zoom-in duration-700">
-          <div className="text-7xl mb-6">👨🏾‍🚀</div>
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-4">
-            YOU ARE: {archetype.name.toUpperCase()}
-          </h1>
-          <p className="text-2xl text-[#FCD34D] italic mb-8">
-            {archetype.tagline}
+    <main className="min-h-screen bg-akuverse p-4 pb-20">
+
+      {/* Ambient glow */}
+      <div className="pointer-events-none fixed inset-0 overflow-hidden">
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[500px] rounded-full bg-cyan-500/5 blur-[130px]" />
+        <div className="absolute bottom-0 left-1/4 w-[400px] h-[300px] rounded-full bg-purple-900/15 blur-[100px]" />
+      </div>
+
+      <div className="relative z-10 max-w-3xl mx-auto pt-10">
+
+        {/* Nav */}
+        <div className="flex items-center justify-between mb-14">
+          <Link href="/" className="font-display text-xl tracking-widest text-white/50 hover:text-white transition-colors">
+            ΛKU
+          </Link>
+          <Link href="/quiz" className="font-condensed text-xs uppercase tracking-widest text-slate-600 hover:text-cyan-400 transition-colors">
+            Retake Quiz
+          </Link>
+        </div>
+
+        {/* HERO REVEAL */}
+        <div className="text-center mb-16 animate-in">
+          <p className="font-condensed text-xs uppercase tracking-[0.5em] text-cyan-400 mb-3">
+            Mission Complete — Your Akutar Is
           </p>
-          <p className="text-xl text-gray-200 max-w-2xl mx-auto">
+          <h1 className="font-display text-[clamp(3.5rem,14vw,8rem)] leading-none text-white text-glow-cyan mb-4">
+            {archetype.name.toUpperCase()}
+          </h1>
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <div className="h-px w-20 bg-gradient-to-r from-transparent to-cyan-400/50" />
+            <div className="w-1.5 h-1.5 rounded-full bg-cyan-400" style={{boxShadow: '0 0 8px #00d4ff'}} />
+            <div className="h-px w-20 bg-gradient-to-l from-transparent to-cyan-400/50" />
+          </div>
+          <p className="font-condensed italic text-2xl text-amber-300 mb-6">
+            "{archetype.tagline}"
+          </p>
+          <p className="font-condensed text-xl text-slate-300 max-w-xl mx-auto leading-relaxed">
             {archetype.description}
           </p>
         </div>
 
-        {/* Traits Section */}
-        <div className="mb-12 bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-white/20">
-          <h2 className="text-3xl font-bold text-white mb-6">
+        {/* TRAITS */}
+        <div className="glass border border-cyan-500/20 border-glow-cyan rounded-sm p-8 mb-8">
+          <p className="font-condensed text-xs uppercase tracking-[0.4em] text-cyan-400 mb-2">Equipment Profile</p>
+          <h2 className="font-display text-4xl text-white mb-8">
             YOUR {archetype.name.toUpperCase()} TRAITS
           </h2>
           <div className="space-y-6">
             {Object.entries(archetype.traits).map(([key, value]) => {
               const meaning = archetype.traitMeanings[key as keyof typeof archetype.traitMeanings];
               return (
-                <div key={key} className="border-l-4 border-[#10B981] pl-6">
-                  <p className="text-[#FCD34D] font-semibold uppercase text-sm mb-1">
+                <div key={key} className="border-l-2 border-cyan-400/40 pl-6">
+                  <p className="font-condensed text-xs uppercase tracking-[0.3em] text-cyan-400 mb-1">
                     {key}
                   </p>
-                  <p className="text-xl text-white font-bold mb-2">
-                    ✦ {value}
+                  <p className="font-display text-2xl text-white mb-1.5">
+                    {value}
                   </p>
-                  <p className="text-gray-300">
-                    → {meaning}
+                  <p className="font-condensed text-slate-400">
+                    {meaning}
                   </p>
                 </div>
               );
@@ -65,21 +99,22 @@ export default function ResultPage() {
           </div>
         </div>
 
-        {/* Real Astronauts */}
-        <div className="mb-12 bg-gradient-to-br from-[#7C3AED]/20 to-[#DC2626]/20 backdrop-blur-sm p-8 rounded-2xl border border-white/20">
-          <h2 className="text-3xl font-bold text-white mb-6">
+        {/* ASTRONAUTS */}
+        <div className="glass border border-white/10 rounded-sm p-8 mb-8" style={{background: 'rgba(30, 10, 60, 0.4)'}}>
+          <p className="font-condensed text-xs uppercase tracking-[0.4em] text-amber-400/80 mb-2">Inspiration</p>
+          <h2 className="font-display text-4xl text-white mb-8">
             REAL {archetype.name.toUpperCase()}S LIKE YOU
           </h2>
-          <div className="space-y-6">
+          <div className="space-y-8">
             {archetype.realAstronauts.map((astronaut, index) => (
-              <div key={index} className="border-l-4 border-[#FCD34D] pl-6">
-                <p className="text-xl text-white font-bold mb-1">
-                  🚀 {astronaut.name}
+              <div key={index} className="border-l-2 border-amber-400/40 pl-6">
+                <p className="font-display text-2xl text-white mb-1">
+                  {astronaut.name}
                 </p>
-                <p className="text-gray-300 mb-2 italic">
+                <p className="font-condensed text-sm text-amber-300/80 uppercase tracking-widest mb-3">
                   {astronaut.achievement}
                 </p>
-                <p className="text-gray-200">
+                <p className="font-condensed italic text-slate-300 text-lg leading-relaxed">
                   "{astronaut.quote}"
                 </p>
               </div>
@@ -87,113 +122,110 @@ export default function ResultPage() {
           </div>
         </div>
 
-        {/* Qualities */}
-        <div className="mb-12">
-          <h2 className="text-2xl font-bold text-white mb-4">
-            YOUR {archetype.name.toUpperCase()} QUALITIES:
+        {/* QUALITIES */}
+        <div className="mb-8">
+          <p className="font-condensed text-xs uppercase tracking-[0.4em] text-cyan-400 mb-2">Your Profile</p>
+          <h2 className="font-display text-4xl text-white mb-6">
+            {archetype.name.toUpperCase()} QUALITIES
           </h2>
-          <div className="grid md:grid-cols-2 gap-3">
+          <div className="grid sm:grid-cols-2 gap-3">
             {archetype.qualities.map((quality, index) => (
-              <div key={index} className="flex items-center bg-white/5 backdrop-blur-sm p-4 rounded-lg border border-white/10">
-                <span className="text-[#10B981] mr-3">✓</span>
-                <span className="text-gray-200">{quality}</span>
+              <div
+                key={index}
+                className="glass border border-white/10 rounded-sm p-5 flex items-center gap-4 hover:border-cyan-400/30 transition-colors"
+              >
+                <span className="font-display text-cyan-400 text-xl leading-none">✦</span>
+                <span className="font-condensed text-slate-200">{quality}</span>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Mission */}
-        <div className="mb-12 text-center p-8 bg-gradient-to-r from-[#DC2626]/20 to-[#7C3AED]/20 backdrop-blur-sm rounded-2xl border border-white/20">
-          <h2 className="text-2xl font-bold text-white mb-4">YOUR MISSION</h2>
-          <p className="text-xl text-gray-100 leading-relaxed">
+        {/* MISSION */}
+        <div className="glass-dark border border-cyan-400/20 border-glow-cyan rounded-sm p-10 mb-10 text-center">
+          <p className="font-condensed text-xs uppercase tracking-[0.4em] text-cyan-400 mb-4">Your Mission</p>
+          <p className="font-condensed text-2xl text-white leading-relaxed">
             {archetype.mission}
           </p>
         </div>
 
-        {/* Akutar Match (Placeholder - will integrate OpenSea API) */}
-        <div className="mb-12 bg-white/5 backdrop-blur-sm p-8 rounded-2xl border border-white/20">
-          <h2 className="text-3xl font-bold text-white mb-6">YOUR AKUTAR MATCH</h2>
-          <p className="text-gray-300 mb-6">
-            We're matching you with Akutars that share your {archetype.name.toLowerCase()} spirit...
+        {/* AKUTAR MATCH */}
+        <div className="glass border border-white/10 rounded-sm p-8 mb-8">
+          <p className="font-condensed text-xs uppercase tracking-[0.4em] text-cyan-400 mb-2">Collection Match</p>
+          <h2 className="font-display text-4xl text-white mb-4">YOUR AKUTAR</h2>
+          <p className="font-condensed text-slate-400 mb-8">
+            We're matching you with Akutars that share your {archetype.name.toLowerCase()} spirit across the 14,833-piece collection.
           </p>
-          <a 
+          <a
             href={`https://opensea.io/collection/akutars?search[query]=${archetype.traits.helmet}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block px-8 py-3 bg-[#10B981] text-white font-semibold rounded-full hover:bg-[#FCD34D] hover:text-black transition-all"
+            className="inline-block font-condensed font-bold text-sm uppercase tracking-widest px-8 py-4 border border-cyan-400/50 text-cyan-300 hover:border-cyan-400 hover:text-white hover:bg-cyan-400/10 transition-all duration-200 rounded-sm border-glow-cyan"
           >
             Explore {archetype.name}s on OpenSea →
           </a>
         </div>
 
-        {/* CTAs */}
-        <div className="grid md:grid-cols-2 gap-6 mb-12">
-          <div className="bg-white/5 backdrop-blur-sm p-8 rounded-xl border border-white/20">
-            <h3 className="text-2xl font-bold text-white mb-3">📖 Read Aku's Story</h3>
-            <p className="text-gray-300 mb-4">
-              Follow Aku's journey to Ibra—a planet where dreamers like you discover their true potential.
+        {/* CTA CARDS */}
+        <div className="grid sm:grid-cols-2 gap-5 mb-10">
+          <div className="glass border border-white/10 rounded-sm p-7 hover:border-white/20 transition-colors">
+            <p className="font-condensed text-xs uppercase tracking-[0.3em] text-cyan-400 mb-3">The Book</p>
+            <h3 className="font-display text-3xl text-white mb-3">AKU'S STORY</h3>
+            <p className="font-condensed text-slate-400 text-sm mb-6 leading-relaxed">
+              Follow Aku's journey to Ibra — a planet where dreamers like you discover their true potential.
             </p>
-            <a 
+            <a
               href="https://www.penguinrandomhouse.com/books/746514/aku-journey-to-ibra-by-micah-johnson/"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#10B981] hover:text-[#FCD34D] font-semibold transition-colors"
+              className="font-condensed font-semibold text-sm uppercase tracking-widest text-cyan-400 hover:text-white transition-colors"
             >
-              Pre-Order Book →
+              Pre-Order Now →
             </a>
           </div>
 
-          <div className="bg-white/5 backdrop-blur-sm p-8 rounded-xl border border-white/20">
-            <h3 className="text-2xl font-bold text-white mb-3">🌌 Explore the Collection</h3>
-            <p className="text-gray-300 mb-4">
-              Browse all 14,833 Akutars and see the diversity of the Akuverse.
+          <div className="glass border border-white/10 rounded-sm p-7 hover:border-white/20 transition-colors">
+            <p className="font-condensed text-xs uppercase tracking-[0.3em] text-cyan-400 mb-3">The Collection</p>
+            <h3 className="font-display text-3xl text-white mb-3">AKUVERSE</h3>
+            <p className="font-condensed text-slate-400 text-sm mb-6 leading-relaxed">
+              Browse all 14,833 Akutars. See the full diversity of characters who make the universe possible.
             </p>
-            <a 
+            <a
               href="https://opensea.io/collection/akutars"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[#10B981] hover:text-[#FCD34D] font-semibold transition-colors"
+              className="font-condensed font-semibold text-sm uppercase tracking-widest text-cyan-400 hover:text-white transition-colors"
             >
               OpenSea Collection →
             </a>
           </div>
         </div>
 
-        {/* Share */}
-        <div className="text-center mb-8">
-          <h3 className="text-2xl font-bold text-white mb-4">Share Your Results!</h3>
-          <div className="flex gap-4 justify-center">
+        {/* SHARE */}
+        <div className="text-center">
+          <p className="font-condensed text-xs uppercase tracking-[0.4em] text-slate-500 mb-5">Share Your Results</p>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <a
-              href={`https://twitter.com/intent/tweet?text=I'm ${archetype.name} in the Akuverse! ${archetype.tagline} 🚀 Discover your Akutar match: ${typeof window !== 'undefined' ? window.location.origin : ''}`}
+              href={`https://twitter.com/intent/tweet?text=I'm ${archetype.name} in the Akuverse! ${archetype.tagline} 🚀 Discover yours:`}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-6 py-3 bg-[#1DA1F2] text-white rounded-full hover:bg-[#1a8cd8] transition-colors"
+              className="font-condensed font-semibold text-sm uppercase tracking-widest px-8 py-4 bg-[#1DA1F2]/15 border border-[#1DA1F2]/40 text-[#1DA1F2] hover:bg-[#1DA1F2]/25 hover:border-[#1DA1F2] transition-all rounded-sm"
             >
-              Share on Twitter
+              Share on X (Twitter)
             </a>
             <button
               onClick={() => {
                 if (typeof window !== 'undefined') {
                   navigator.clipboard.writeText(window.location.href);
-                  alert('Link copied!');
                 }
               }}
-              className="px-6 py-3 bg-white/10 text-white rounded-full border border-white/30 hover:bg-white/20 transition-colors"
+              className="font-condensed font-semibold text-sm uppercase tracking-widest px-8 py-4 border border-white/20 text-white/60 hover:border-white/40 hover:text-white transition-all rounded-sm"
             >
               Copy Link
             </button>
           </div>
         </div>
 
-        {/* Retake */}
-        <div className="text-center">
-          <Link 
-            href="/quiz"
-            className="text-gray-400 hover:text-white transition-colors underline"
-          >
-            Take Quiz Again
-          </Link>
-        </div>
       </div>
     </main>
   );

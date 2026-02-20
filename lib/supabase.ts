@@ -5,7 +5,9 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = 'https://npnqnsjmcyzkpoqynadr.supabase.co';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
 
-export const supabase = createClient(supabaseUrl, supabaseKey);
+export const supabase = supabaseKey
+  ? createClient(supabaseUrl, supabaseKey)
+  : null;
 
 export interface QuizResult {
   id?: string;
@@ -15,6 +17,8 @@ export interface QuizResult {
 }
 
 export async function logQuizCompletion(archetype: string) {
+  if (!supabase) return { data: null, error: null };
+
   const { data, error } = await supabase
     .from('akutar_quiz_results')
     .insert([
@@ -30,6 +34,8 @@ export async function logQuizCompletion(archetype: string) {
 }
 
 export async function getArchetypeStats() {
+  if (!supabase) return null;
+
   const { data, error } = await supabase
     .from('akutar_quiz_results')
     .select('archetype');
@@ -39,7 +45,6 @@ export async function getArchetypeStats() {
     return null;
   }
 
-  // Calculate distribution
   const distribution: Record<string, number> = {};
   data.forEach(result => {
     distribution[result.archetype] = (distribution[result.archetype] || 0) + 1;
