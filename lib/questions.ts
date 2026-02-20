@@ -30,7 +30,7 @@ export const questions: Question[] = [
       {
         text: 'Rally the crew to stay calm and work together',
         scores: { commander: 3, guardian: 1 },
-        insight: 'Leadership under pressure! During Challenger\'s crisis, commander Francis Scobee kept the crew focused until the end.'
+        insight: 'Leadership under pressure! Commander Chris Hadfield guided the ISS crew through a simulated ammonia leak — calm, clear communication saved the day.'
       },
       {
         text: 'Improvise a creative workaround with available tools',

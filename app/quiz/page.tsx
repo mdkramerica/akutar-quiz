@@ -1,11 +1,64 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { questions, calculateArchetype } from '@/lib/questions';
 import Link from 'next/link';
 import Image from 'next/image';
 import { quizCompanions } from '@/lib/akutars';
+
+const interstitialQuotes = [
+  {
+    quote: "Never be limited by other people's limited imaginations.",
+    author: "Mae C. Jemison",
+    title: "First Black Woman in Space",
+  },
+  {
+    quote: "Mystery creates wonder, and wonder is the basis of humanity's desire to understand.",
+    author: "Neil Armstrong",
+    title: "First Human on the Moon",
+  },
+  {
+    quote: "The universe is under no obligation to make sense to you.",
+    author: "Neil deGrasse Tyson",
+    title: "Astrophysicist & Science Communicator",
+  },
+  {
+    quote: "You can't be what you can't see.",
+    author: "Marian Wright Edelman",
+    title: "Children's Rights Advocate",
+  },
+  {
+    quote: "Decide in your heart what really excites and challenges you, and start moving your life in that direction.",
+    author: "Chris Hadfield",
+    title: "Astronaut, Commander of the ISS",
+  },
+  {
+    quote: "Representation changes who gets to dream.",
+    author: "Micah Johnson",
+    title: "Creator of Aku",
+  },
+  {
+    quote: "Every kid has the right to dream without limits. That starts with seeing themselves in the stars.",
+    author: "Guion Bluford",
+    title: "First Black American in Space",
+  },
+  {
+    quote: "The important achievement of Apollo was demonstrating that humanity is not forever chained to this planet.",
+    author: "Neil Armstrong",
+    title: "Apollo 11 Mission Commander",
+  },
+  {
+    quote: "Somewhere, something incredible is waiting to be known.",
+    author: "Sharon Begley",
+    title: "Science Journalist",
+  },
+  {
+    quote: "We are all astronauts on a little spaceship called Earth.",
+    author: "Buckminster Fuller",
+    title: "Futurist & Inventor",
+  },
+];
 
 export default function QuizPage() {
   const router = useRouter();
@@ -14,6 +67,15 @@ export default function QuizPage() {
   const [showInsight, setShowInsight] = useState(false);
   const [selectedInsight, setSelectedInsight] = useState('');
   const [started, setStarted] = useState(false);
+  const [showInterstitial, setShowInterstitial] = useState(false);
+  const [interstitialQuote, setInterstitialQuote] = useState(interstitialQuotes[0]);
+  const pendingAnswers = useRef<number[][] | null>(null);
+
+  // Pre-select a random quote on mount so it doesn't change mid-display
+  useEffect(() => {
+    const idx = Math.floor(Math.random() * interstitialQuotes.length);
+    setInterstitialQuote(interstitialQuotes[idx]);
+  }, []);
 
   const handleAnswer = (answerIndex: number) => {
     const newAnswers = [...answers];
@@ -21,6 +83,31 @@ export default function QuizPage() {
     setAnswers(newAnswers);
 
     const selectedAnswer = questions[currentQuestion].answers[answerIndex];
+
+    // After Q1 (index 0), show the rotating quote interstitial
+    if (currentQuestion === 0) {
+      pendingAnswers.current = newAnswers;
+      if (selectedAnswer.insight) {
+        setSelectedInsight(selectedAnswer.insight);
+        setShowInsight(true);
+        setTimeout(() => {
+          setShowInsight(false);
+          setShowInterstitial(true);
+          setTimeout(() => {
+            setShowInterstitial(false);
+            moveToNext(newAnswers);
+          }, 4500);
+        }, 3200);
+      } else {
+        setShowInterstitial(true);
+        setTimeout(() => {
+          setShowInterstitial(false);
+          moveToNext(newAnswers);
+        }, 4500);
+      }
+      return;
+    }
+
     if (selectedAnswer.insight) {
       setSelectedInsight(selectedAnswer.insight);
       setShowInsight(true);
@@ -251,6 +338,58 @@ export default function QuizPage() {
         </div>
 
       </div>
+
+      {/* Between-Q1-and-Q2 Quote Interstitial */}
+      {showInterstitial && (
+        <div className="fixed inset-0 flex items-center justify-center p-4 pb-safe z-50" style={{background: 'rgba(4,8,18,0.97)', backdropFilter: 'blur(20px)'}}>
+          {/* Ambient glow */}
+          <div className="pointer-events-none absolute inset-0 overflow-hidden">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full bg-cyan-500/6 blur-[120px]" />
+            <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] rounded-full bg-purple-900/12 blur-[100px]" />
+          </div>
+
+          <div className="relative z-10 max-w-2xl w-full text-center animate-in-zoom">
+            {/* Eyebrow */}
+            <div className="inline-flex items-center gap-2 mb-8 px-4 py-1.5 rounded-full" style={{background: 'rgba(0,212,255,0.08)', border: '1px solid rgba(0,212,255,0.2)'}}>
+              <span style={{width: 5, height: 5, borderRadius: '50%', background: '#00d4ff', boxShadow: '0 0 8px #00d4ff', display: 'inline-block'}} />
+              <span className="font-condensed text-xs uppercase tracking-[0.4em] text-cyan-400">Transmission from the Akuverse</span>
+            </div>
+
+            {/* Large decorative quote mark */}
+            <div className="font-display text-[8rem] leading-none text-cyan-400/10 select-none mb-[-2rem]">&ldquo;</div>
+
+            {/* The quote */}
+            <p className="font-condensed italic text-xl sm:text-2xl md:text-3xl text-white leading-relaxed mb-8 px-2" style={{textShadow: '0 0 40px rgba(0,212,255,0.2)'}}>
+              {interstitialQuote.quote}
+            </p>
+
+            {/* Divider */}
+            <div className="flex items-center justify-center gap-4 mb-6">
+              <div className="h-px w-12 bg-gradient-to-r from-transparent to-cyan-400/40" />
+              <div className="w-1 h-1 rounded-full bg-cyan-400/60" />
+              <div className="h-px w-12 bg-gradient-to-l from-transparent to-cyan-400/40" />
+            </div>
+
+            {/* Attribution */}
+            <p className="font-display text-lg sm:text-xl text-white tracking-wider mb-1">
+              {interstitialQuote.author.toUpperCase()}
+            </p>
+            <p className="font-condensed text-xs uppercase tracking-[0.3em] text-cyan-400/70">
+              {interstitialQuote.title}
+            </p>
+
+            {/* Progress dots */}
+            <div className="flex items-center justify-center gap-2 mt-10">
+              <span className="font-condensed text-xs uppercase tracking-widest text-slate-600">Continuing mission</span>
+              <span className="inline-flex gap-1">
+                {[0,1,2].map(i => (
+                  <span key={i} className="w-1 h-1 rounded-full bg-cyan-400/40" style={{animation: `pulse 1.2s ease-in-out ${i * 0.3}s infinite`}} />
+                ))}
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Insight Popup */}
       {showInsight && (
