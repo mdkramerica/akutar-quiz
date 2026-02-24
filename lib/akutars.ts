@@ -4,6 +4,9 @@
 const BASE = 'https://i2c.seadn.io/ethereum/0xaad35c2dadbe77f97301617d82e661776c891fa9';
 const OS   = 'https://opensea.io/assets/ethereum/0xaad35c2dadbe77f97301617d82e661776c891fa9';
 
+// Tiny base64 blur placeholder for NFT images (dark space-themed)
+export const NFT_BLUR_DATA_URL = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAYAAADED76LAAAAJklEQVQYV2N89+7dfwYGBgZGRkYGJgYKACMDFYCRgQrAyEAeAABY+AT/cGpMhAAAAABJRU5ErkJggg==';
+
 export interface AkutarNFT {
   tokenId: string;
   image: string;

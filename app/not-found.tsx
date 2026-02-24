@@ -1,0 +1,56 @@
+import Link from 'next/link';
+
+export default function NotFound() {
+  return (
+    <main className="min-h-screen bg-akuverse flex items-center justify-center p-4">
+      <div className="pointer-events-none fixed inset-0 overflow-hidden">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full bg-cyan-500/6 blur-[120px]" />
+        <div className="absolute bottom-0 right-1/4 w-[400px] h-[300px] rounded-full bg-purple-900/15 blur-[100px]" />
+      </div>
+
+      <div className="relative z-10 max-w-lg w-full text-center">
+        <p className="font-condensed text-xs uppercase tracking-[0.4em] text-cyan-400 mb-4">
+          Signal Lost
+        </p>
+        <h1 className="font-display text-[clamp(4rem,14vw,9rem)] leading-none text-white text-glow-cyan mb-4">
+          404
+        </h1>
+        <div className="flex items-center justify-center gap-4 mb-6">
+          <div className="h-px w-16 bg-gradient-to-r from-transparent to-cyan-400/50" />
+          <div className="w-1.5 h-1.5 rounded-full bg-cyan-400" style={{ boxShadow: '0 0 8px #00d4ff' }} />
+          <div className="h-px w-16 bg-gradient-to-l from-transparent to-cyan-400/50" />
+        </div>
+        <p className="font-condensed text-lg text-slate-300 mb-2">
+          This sector of the Akuverse hasn&apos;t been explored yet.
+        </p>
+        <p className="font-condensed text-base text-slate-400 mb-8">
+          The coordinates you entered don&apos;t match any known destination.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+          <Link
+            href="/"
+            className="font-condensed font-bold text-base uppercase tracking-widest px-8 py-4 rounded-sm transition-all duration-200"
+            style={{
+              background: 'rgba(0,212,255,0.15)',
+              border: '1px solid rgba(0,212,255,0.7)',
+              color: '#e0f8ff',
+            }}
+          >
+            Return to Base
+          </Link>
+          <Link
+            href="/quiz"
+            className="font-condensed font-bold text-base uppercase tracking-widest px-8 py-4 rounded-sm transition-all duration-200"
+            style={{
+              background: 'rgba(255,255,255,0.04)',
+              border: '1px solid rgba(255,255,255,0.2)',
+              color: 'rgba(255,255,255,0.7)',
+            }}
+          >
+            Start Quiz
+          </Link>
+        </div>
+      </div>
+    </main>
+  );
+}

@@ -3,9 +3,10 @@
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { questions, calculateArchetype } from '@/lib/questions';
+import { trackQuizAbandonment } from '@/lib/analytics';
 import Link from 'next/link';
 import Image from 'next/image';
-import { quizCompanions } from '@/lib/akutars';
+import { quizCompanions, NFT_BLUR_DATA_URL } from '@/lib/akutars';
 
 const interstitialQuotes = [
   {
@@ -77,6 +78,18 @@ export default function QuizPage() {
     setInterstitialQuote(interstitialQuotes[idx]);
   }, []);
 
+  // Track quiz abandonment when user leaves mid-quiz
+  useEffect(() => {
+    if (!started) return;
+    const handleBeforeUnload = () => {
+      if (currentQuestion < questions.length - 1) {
+        trackQuizAbandonment(currentQuestion + 1, questions.length);
+      }
+    };
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
+  }, [started, currentQuestion]);
+
   const handleAnswer = (answerIndex: number) => {
     const newAnswers = [...answers];
     newAnswers[currentQuestion] = [answerIndex];
@@ -134,7 +147,7 @@ export default function QuizPage() {
   // Intro screen
   if (!started) {
     return (
-      <main className="min-h-screen bg-akuverse flex items-center justify-center p-4 pb-safe">
+      <main id="main-content" className="min-h-screen bg-akuverse flex items-center justify-center p-4 pb-safe">
 
         {/* Ambient glow */}
         <div className="pointer-events-none fixed inset-0 overflow-hidden">
@@ -202,7 +215,7 @@ export default function QuizPage() {
   const question = questions[currentQuestion];
 
   return (
-    <main className="min-h-screen bg-akuverse p-4 overflow-x-hidden">
+    <main id="main-content" className="min-h-screen bg-akuverse p-4 overflow-x-hidden" aria-label="Akutar personality quiz">
 
       {/* Ambient glow */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
@@ -223,7 +236,7 @@ export default function QuizPage() {
 
         {/* Progress bar */}
         <div className="mb-8 sm:mb-10">
-          <div className="w-full h-px bg-white/10 relative overflow-hidden rounded-full">
+          <div className="w-full h-px bg-white/10 relative overflow-hidden rounded-full" role="progressbar" aria-valuenow={Math.round(progress)} aria-valuemin={0} aria-valuemax={100} aria-label={`Quiz progress: question ${currentQuestion + 1} of ${questions.length}`}>
             <div
               className="absolute left-0 top-0 h-full bg-cyan-400 transition-all duration-700 ease-out"
               style={{
@@ -270,6 +283,9 @@ export default function QuizPage() {
               alt="Akutar companion"
               width={90}
               height={90}
+              sizes="90px"
+              placeholder="blur"
+              blurDataURL={NFT_BLUR_DATA_URL}
               style={{objectFit: 'cover', display: 'block'}}
             />
           </div>
@@ -279,11 +295,12 @@ export default function QuizPage() {
         </div>
 
         {/* Answers */}
-        <div className="flex flex-col gap-2 sm:gap-[10px]">
+        <div className="flex flex-col gap-2 sm:gap-[10px]" role="group" aria-label="Answer options">
           {question.answers.map((answer, index) => (
             <button
               key={index}
               onClick={() => handleAnswer(index)}
+              aria-label={`Option ${String.fromCharCode(65 + index)}: ${answer.text}`}
               className="w-full text-left transition-all duration-150 active:scale-[0.99]"
               style={{
                 background: 'rgba(255,255,255,0.08)',
@@ -341,7 +358,7 @@ export default function QuizPage() {
 
       {/* Between-Q1-and-Q2 Quote Interstitial */}
       {showInterstitial && (
-        <div className="fixed inset-0 flex items-center justify-center p-4 pb-safe z-50" style={{background: 'rgba(4,8,18,0.97)', backdropFilter: 'blur(20px)'}}>
+        <div className="fixed inset-0 flex items-center justify-center p-4 pb-safe z-50" role="dialog" aria-label="Inspirational quote" style={{background: 'rgba(4,8,18,0.97)', backdropFilter: 'blur(20px)'}}>
           {/* Ambient glow */}
           <div className="pointer-events-none absolute inset-0 overflow-hidden">
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full bg-cyan-500/6 blur-[120px]" />
@@ -393,7 +410,7 @@ export default function QuizPage() {
 
       {/* Insight Popup */}
       {showInsight && (
-        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-end sm:items-center justify-center p-4 pb-safe z-50 animate-in">
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-end sm:items-center justify-center p-4 pb-safe z-50 animate-in" role="dialog" aria-label="Astronaut insight">
           <div className="rounded-sm max-w-xl w-full p-6 sm:p-10" style={{background: 'rgba(4,10,22,0.97)', border: '1px solid rgba(0,212,255,0.55)', boxShadow: '0 0 40px rgba(0,212,255,0.25)'}}>
             <p className="font-condensed text-xs uppercase tracking-[0.4em] text-cyan-400 mb-3 sm:mb-4">
               Astronaut Insight

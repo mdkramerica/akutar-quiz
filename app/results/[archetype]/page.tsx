@@ -2,7 +2,7 @@
 
 import { archetypes, ArchetypeId } from '@/lib/archetypes';
 import { logQuizCompletion } from '@/lib/supabase';
-import { archetypeAkutars } from '@/lib/akutars';
+import { archetypeAkutars, NFT_BLUR_DATA_URL } from '@/lib/akutars';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
@@ -70,7 +70,7 @@ export default function ResultPage() {
   }
 
   return (
-    <main className="min-h-screen bg-akuverse p-4 overflow-x-hidden pb-safe">
+    <main id="main-content" className="min-h-screen bg-akuverse p-4 overflow-x-hidden pb-safe" aria-label={`Your archetype result: ${archetype.name}`}>
 
       {/* Ambient glow */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
@@ -81,14 +81,14 @@ export default function ResultPage() {
       <div className="relative z-10 max-w-3xl mx-auto pt-6 sm:pt-10">
 
         {/* Nav */}
-        <div className="flex items-center justify-between mb-8 sm:mb-14">
-          <Link href="/" className="font-display text-xl tracking-widest text-white/50 hover:text-white transition-colors">
+        <nav className="flex items-center justify-between mb-8 sm:mb-14" aria-label="Results navigation">
+          <Link href="/" className="font-display text-xl tracking-widest text-white/50 hover:text-white transition-colors" aria-label="Back to Aku homepage">
             ΛKU
           </Link>
           <Link href="/quiz" className="font-condensed text-xs uppercase tracking-widest text-slate-500 hover:text-cyan-400 transition-colors py-2 px-1">
             Retake Quiz
           </Link>
-        </div>
+        </nav>
 
         {/* HERO REVEAL */}
         <div className="text-center mb-10 sm:mb-16 animate-in">
@@ -210,6 +210,9 @@ export default function ResultPage() {
                   alt={`Akutar #${nft.tokenId}`}
                   width={400}
                   height={400}
+                  sizes="(max-width: 768px) 45vw, 350px"
+                  placeholder="blur"
+                  blurDataURL={NFT_BLUR_DATA_URL}
                   style={{objectFit: 'cover', width: '100%', height: 'auto', display: 'block', transition: 'transform 0.4s'}}
                   className="group-hover:scale-105"
                 />

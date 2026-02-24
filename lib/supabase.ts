@@ -2,10 +2,15 @@
 
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = 'https://npnqnsjmcyzkpoqynadr.supabase.co';
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-export const supabase = supabaseKey
+// Validate environment variables
+if (!supabaseUrl || !supabaseKey) {
+  console.warn('Supabase environment variables not configured. Analytics will be disabled.');
+}
+
+export const supabase = supabaseUrl && supabaseKey
   ? createClient(supabaseUrl, supabaseKey)
   : null;
 
@@ -17,38 +22,43 @@ export interface QuizResult {
 }
 
 export async function logQuizCompletion(archetype: string) {
-  if (!supabase) return { data: null, error: null };
+  try {
+    const response = await fetch('/api/analytics', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ archetype }),
+    });
 
-  const { data, error } = await supabase
-    .from('akutar_quiz_results')
-    .insert([
-      {
-        archetype,
-        completed_at: new Date().toISOString(),
-        user_agent: typeof window !== 'undefined' ? navigator.userAgent : 'unknown'
-      }
-    ]);
+    if (!response.ok) {
+      const error = await response.json();
+      console.error('Error logging quiz result:', error);
+      return { data: null, error };
+    }
 
-  if (error) console.error('Error logging quiz result:', error);
-  return { data, error };
+    const result = await response.json();
+    return { data: result.data, error: null };
+  } catch (error) {
+    console.error('Error logging quiz result:', error);
+    return { data: null, error };
+  }
 }
 
 export async function getArchetypeStats() {
-  if (!supabase) return null;
+  try {
+    const response = await fetch('/api/analytics');
+    
+    if (!response.ok) {
+      const error = await response.json();
+      console.error('Error fetching stats:', error);
+      return null;
+    }
 
-  const { data, error } = await supabase
-    .from('akutar_quiz_results')
-    .select('archetype');
-
-  if (error) {
+    const { distribution } = await response.json();
+    return distribution;
+  } catch (error) {
     console.error('Error fetching stats:', error);
     return null;
   }
-
-  const distribution: Record<string, number> = {};
-  data.forEach(result => {
-    distribution[result.archetype] = (distribution[result.archetype] || 0) + 1;
-  });
-
-  return distribution;
 }

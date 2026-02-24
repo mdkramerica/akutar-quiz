@@ -1,14 +1,14 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import { homepageGallery } from '@/lib/akutars';
+import { homepageGallery, NFT_BLUR_DATA_URL } from '@/lib/akutars';
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-akuverse text-white overflow-x-hidden">
+    <main id="main-content" className="min-h-screen bg-akuverse text-white overflow-x-hidden">
 
       {/* Navbar */}
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 glass-dark border-b border-cyan-500/10">
-        <span className="font-display text-2xl tracking-widest text-white">ΛKU</span>
+      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-4 glass-dark border-b border-cyan-500/10" aria-label="Main navigation">
+        <span className="font-display text-2xl tracking-widest text-white" aria-label="Aku">ΛKU</span>
         <Link
           href="/quiz"
           className="font-condensed font-semibold text-sm uppercase tracking-widest px-5 py-2 border border-cyan-400/40 text-cyan-300 hover:border-cyan-400 hover:text-white hover:bg-cyan-400/10 transition-all duration-200 rounded-sm"
@@ -18,7 +18,7 @@ export default function Home() {
       </nav>
 
       {/* Hero */}
-      <section className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 pt-20">
+      <section className="relative min-h-screen flex flex-col items-center justify-center text-center px-4 pt-20" aria-label="Welcome to the Akuverse">
 
         {/* Ambient glow orbs */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
@@ -80,24 +80,24 @@ export default function Home() {
         <div className="hidden lg:block pointer-events-none absolute inset-0 overflow-hidden">
           <div className="absolute top-1/3 left-8 -translate-y-1/2 opacity-70 animate-in" style={{animationDelay: '500ms'}}>
             <div style={{border: '1px solid rgba(0,212,255,0.35)', borderRadius: '4px', overflow: 'hidden', boxShadow: '0 0 24px rgba(0,212,255,0.15)', width: 110, height: 110}}>
-              <Image src={homepageGallery[0].image} alt={`Akutar #${homepageGallery[0].tokenId}`} width={110} height={110} style={{objectFit: 'cover'}} />
+              <Image src={homepageGallery[0].image} alt={`Akutar #${homepageGallery[0].tokenId}`} width={110} height={110} style={{objectFit: 'cover'}} placeholder="blur" blurDataURL={NFT_BLUR_DATA_URL} sizes="110px" />
             </div>
             <p style={{textAlign: 'center', color: 'rgba(0,212,255,0.6)', fontSize: '10px', fontFamily: '"Barlow Condensed", sans-serif', letterSpacing: '0.15em', marginTop: '6px'}}>#{homepageGallery[0].tokenId}</p>
           </div>
           <div className="absolute top-1/4 right-8 opacity-70 animate-in" style={{animationDelay: '600ms'}}>
             <div style={{border: '1px solid rgba(0,212,255,0.35)', borderRadius: '4px', overflow: 'hidden', boxShadow: '0 0 24px rgba(0,212,255,0.15)', width: 110, height: 110}}>
-              <Image src={homepageGallery[1].image} alt={`Akutar #${homepageGallery[1].tokenId}`} width={110} height={110} style={{objectFit: 'cover'}} />
+              <Image src={homepageGallery[1].image} alt={`Akutar #${homepageGallery[1].tokenId}`} width={110} height={110} style={{objectFit: 'cover'}} placeholder="blur" blurDataURL={NFT_BLUR_DATA_URL} sizes="110px" />
             </div>
             <p style={{textAlign: 'center', color: 'rgba(0,212,255,0.6)', fontSize: '10px', fontFamily: '"Barlow Condensed", sans-serif', letterSpacing: '0.15em', marginTop: '6px'}}>#{homepageGallery[1].tokenId}</p>
           </div>
           <div className="absolute bottom-1/3 left-16 opacity-50 animate-in" style={{animationDelay: '700ms'}}>
             <div style={{border: '1px solid rgba(124,58,237,0.4)', borderRadius: '4px', overflow: 'hidden', boxShadow: '0 0 20px rgba(124,58,237,0.15)', width: 80, height: 80}}>
-              <Image src={homepageGallery[2].image} alt={`Akutar #${homepageGallery[2].tokenId}`} width={80} height={80} style={{objectFit: 'cover'}} />
+              <Image src={homepageGallery[2].image} alt={`Akutar #${homepageGallery[2].tokenId}`} width={80} height={80} style={{objectFit: 'cover'}} placeholder="blur" blurDataURL={NFT_BLUR_DATA_URL} sizes="80px" />
             </div>
           </div>
           <div className="absolute bottom-1/4 right-16 opacity-50 animate-in" style={{animationDelay: '800ms'}}>
             <div style={{border: '1px solid rgba(124,58,237,0.4)', borderRadius: '4px', overflow: 'hidden', boxShadow: '0 0 20px rgba(124,58,237,0.15)', width: 80, height: 80}}>
-              <Image src={homepageGallery[3].image} alt={`Akutar #${homepageGallery[3].tokenId}`} width={80} height={80} style={{objectFit: 'cover'}} />
+              <Image src={homepageGallery[3].image} alt={`Akutar #${homepageGallery[3].tokenId}`} width={80} height={80} style={{objectFit: 'cover'}} placeholder="blur" blurDataURL={NFT_BLUR_DATA_URL} sizes="80px" />
             </div>
           </div>
         </div>
@@ -213,7 +213,7 @@ export default function Home() {
       </section>
 
       {/* NFT Gallery */}
-      <section className="py-14 sm:py-20 px-4 border-t border-white/5">
+      <section className="py-14 sm:py-20 px-4 border-t border-white/5" aria-label="Akutar NFT collection gallery">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-8 sm:mb-12">
             <p className="font-condensed text-xs uppercase tracking-[0.4em] text-cyan-400 mb-2">The Collection</p>
@@ -238,6 +238,9 @@ export default function Home() {
                   alt={`Akutar #${nft.tokenId}`}
                   width={180}
                   height={180}
+                  sizes="(max-width: 640px) 25vw, (max-width: 768px) 16.67vw, 12.5vw"
+                  placeholder="blur"
+                  blurDataURL={NFT_BLUR_DATA_URL}
                   style={{objectFit: 'cover', width: '100%', height: 'auto', display: 'block', transition: 'transform 0.3s'}}
                   className="group-hover:scale-110"
                 />
@@ -264,7 +267,7 @@ export default function Home() {
       </section>
 
       {/* Impact & Giving */}
-      <section className="py-14 sm:py-20 px-4 border-t border-white/5">
+      <section className="py-14 sm:py-20 px-4 border-t border-white/5" aria-label="Impact and charitable giving">
         <div className="max-w-6xl mx-auto">
 
           <div className="text-center mb-10 sm:mb-14">
