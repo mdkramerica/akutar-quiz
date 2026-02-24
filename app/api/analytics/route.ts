@@ -88,11 +88,20 @@ export async function GET(request: NextRequest) {
 
     // Calculate distribution
     const distribution: Record<string, number> = {};
+    let total = 0;
     data.forEach(result => {
       distribution[result.archetype] = (distribution[result.archetype] || 0) + 1;
+      total++;
     });
 
-    return NextResponse.json({ distribution });
+    return NextResponse.json(
+      { distribution, total, updatedAt: new Date().toISOString() },
+      {
+        headers: {
+          'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+        },
+      }
+    );
   } catch (error) {
     console.error('Analytics API error:', error);
     return NextResponse.json(

@@ -144,3 +144,75 @@ a {
   0%, 100% { opacity: 0.3; transform: scale(1); }
   50% { opacity: 1; transform: scale(1.4); }
 }
+
+/* Archetype reveal animation keyframes */
+@keyframes revealDotPulse {
+  0%   { opacity: 0; transform: scale(0); }
+  50%  { opacity: 1; transform: scale(1.5); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes revealLineExpand {
+  from { transform: scaleX(0); opacity: 0; }
+  to   { transform: scaleX(1); opacity: 1; }
+}
+
+@keyframes revealTypeIn {
+  from { opacity: 0; clip-path: inset(0 100% 0 0); }
+  to   { opacity: 1; clip-path: inset(0 0 0 0); }
+}
+
+@keyframes revealNameExplode {
+  0%   { opacity: 0; transform: scale(0.3); filter: blur(8px); }
+  60%  { opacity: 1; transform: scale(1.05); filter: blur(0); }
+  100% { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+
+@keyframes revealGlowPulse {
+  0%   { text-shadow: 0 0 60px rgba(0,212,255,1), 0 0 120px rgba(0,212,255,0.6); }
+  100% { text-shadow: 0 0 30px rgba(0,212,255,0.7), 0 0 80px rgba(0,212,255,0.3); }
+}
+
+@keyframes revealLinesSweep {
+  from { transform: scaleX(0); opacity: 0; }
+  to   { transform: scaleX(1); opacity: 1; }
+}
+
+@keyframes revealTaglineFadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes revealOverlayDissolve {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* Reveal utility classes */
+.reveal-dot     { animation: revealDotPulse 0.4s ease-out both; }
+.reveal-line    { animation: revealLineExpand 0.5s ease-out 0.2s both; transform-origin: center; }
+.reveal-type    { animation: revealTypeIn 0.6s ease-out both; }
+.reveal-name    { animation: revealNameExplode 0.7s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.reveal-glow    { animation: revealGlowPulse 1.5s ease-out both; }
+.reveal-sweep   { animation: revealLinesSweep 0.4s ease-out both; transform-origin: center; }
+.reveal-tagline { animation: revealTaglineFadeUp 0.5s ease-out both; }
+.reveal-dissolve { animation: revealOverlayDissolve 0.6s ease-out both; pointer-events: none; }
+
+/* Reduced motion: disable all animations */
+@media (prefers-reduced-motion: reduce) {
+  .animate-in,
+  .animate-in-zoom,
+  .reveal-dot,
+  .reveal-line,
+  .reveal-type,
+  .reveal-name,
+  .reveal-glow,
+  .reveal-sweep,
+  .reveal-tagline,
+  .reveal-dissolve {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}

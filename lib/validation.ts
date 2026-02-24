@@ -36,6 +36,13 @@ export const StatsResponseSchema = z.object({
   distribution: z.record(ArchetypeSchema, z.number().int().min(0))
 });
 
+// Community stats response validation (enhanced)
+export const CommunityStatsResponseSchema = z.object({
+  distribution: z.record(z.string(), z.number().int().min(0)),
+  total: z.number().int().min(0),
+  updatedAt: z.string(),
+});
+
 // Safe string sanitization for user inputs
 export function sanitizeUserAgent(userAgent: string): string {
   // Remove any potentially malicious content
